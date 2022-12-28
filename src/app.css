@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono&display=swap');
+
+:root {
+  --theme-1-100: #94618E;
+  --theme-2-100: #49274A;
+  --theme-3-100: #F4DECB;
+  --theme-3-025: rgba(244, 222, 203, 0.25);
+  --theme-4-100: #F8EEE7;
+  --theme-4-075: rgba(248, 238, 231, 0.75);
+  --invisible: rgba(255, 255, 255, 0);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: 'Nunito', sans-serif;
+}
+
+body {
+  background-color: var(--theme-4-100);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}

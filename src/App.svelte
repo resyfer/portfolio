@@ -9,6 +9,17 @@
 
   let projects = [
     {
+      name: "libexpress",
+      link: [
+        {
+          name: "GitHub",
+          url: "https://github.com/resyfer/libexpress"
+        }
+      ],
+      technologies: ["C", "Makefile"],
+      description: "An HTTP REST API Server Framework for C.",
+    },
+    {
       name: "Sirin",
       link: [
         {
@@ -23,6 +34,28 @@
       technologies: ["TypeScript", "NodeJS"],
       status: "Published",
       description: "A CLI to allow you to share files instantly over LAN or Hotspot. The NPM package has over 600 total downloads.",
+    },
+    {
+      name: "libasync",
+      link: [
+        {
+          name: "GitHub",
+          url: "https://github.com/resyfer/libasync"
+        }
+      ],
+      technologies: ["C", "Makefile"],
+      description: "Bringing the Async feature of JS to C.",
+    },
+    {
+      name: "libtpool",
+      link: [
+        {
+          name: "GitHub",
+          url: "https://github.com/resyfer/libexpress"
+        }
+      ],
+      technologies: ["C", "Makefile"],
+      description: "A thread pool library for C.",
     },
     {
       name: "Apophis",
@@ -283,6 +316,31 @@
 
   let contributions = [
     {
+      name: "pgmoneta",
+      link: [
+        {
+          name: "GitHub",
+          url: "https://github.com/pgmoneta/pgmoneta.git",
+        },
+      ],
+      status: "Online",
+      contribution: {
+        description: "Adding BZip2 Support to pgmoneta.",
+        link: [
+          {
+            name: "Commits",
+            url: "https://github.com/pgmoneta/pgmoneta/commit/36451e78dbf4f4f4926b156f33f2ab5f27a13d52",
+          }
+        ]
+      },
+      description: "A Backup / Restore solution for PostgreSQL.",
+      technologies: [
+        "C",
+        "Make",
+        "PostgreSQL"
+      ]
+    },
+    {
       name: "Tecnoesis Backend",
       link: [
         {
@@ -444,18 +502,12 @@
   </nav>
   <section id="intro">
     <div class="intro-content">
-      <div class="left">
-        <div class="name">
-          <h1>Saurav Pal</h1>
-        </div>
+      <div class="name">
+        Saurav Pal
       </div>
-      <div class="right">
-        <img src={pfpImg} alt="Profile"/>
-      </div>
-    </div>
-    <div class="intro-img-cont">
-      <img src={bgImg} alt="Bg Img"/>
-      <div class="intro-img-tint"></div>
+      <!-- <div class="img">
+        <img src={pfpImg} alt="Profile" />
+      </div> -->
     </div>
   </section>
 
@@ -468,23 +520,23 @@
     <h1>About Me</h1>
     <div class="about-content">
       <p>
-        &emsp;I am Saurav Pal, a third year undergraduate pursuing Bachelor of Technology in Computer Science and Engineering
+        &emsp;&emsp;&emsp;&emsp;I am Saurav Pal, a third year undergraduate pursuing Bachelor of Technology in Computer Science and Engineering
         from <a target="_blank" rel="noreferrer" href="http://www.nits.ac.in/">National Institute of Technology, Silchar</a> one of the Institutes of National Importance, as well as
         <a target="_blank" rel="noreferrer" href="https://www.usnews.com/education/best-global-universities/national-institute-of-technology-silchar-529775#:~:text=National%20Institute%20of%20Technology%20Silchar%20is%20ranked%20%231818%20in%20Best,about%20how%20we%20rank%20schools.">one of the top
         institutes in the world</a>.
       </p>
       <p>
-        &emsp;I am the Cloud Moderator of <a target="_blank" rel="noreferrer" href="https://gdsc.community.dev/national-institute-of-technology-nit-silchar/#team-list">GDSC NIT Silchar</a>
+        &emsp;&emsp;&emsp;&emsp;I am the Cloud Moderator of <a target="_blank" rel="noreferrer" href="https://gdsc.community.dev/national-institute-of-technology-nit-silchar/#team-list">GDSC NIT Silchar</a>
         for the 2022-23 session and was the Web Team member for 2021-22 session. I am a certified <a target="_blank" rel="noreferrer" href="https://www.google.com">Google Cloud Digital Leader</a>.
         At GDSC NIT Silchar, I have worked on numerous projects, both as a web developer as well as a cloud engineer and also have guided junior developers on numerous
         GDSC NIT Silchar affiliated projects like <a href="https://www.linkedin.com/posts/gdscnits_gdsc-developerstudentclubs-guidancegrid-activity-7002186158180839424-wvnl?utm_source=share&utm_medium=member_desktop">Guidance Grid</a>.
       </p>
       <p>
-        &emsp;I am also the Deputy Director Technical Operations of the Web Development Team at NIT Silchar Model United Nations, and have both worked as a web developer in the team as well as a mentor
+        &emsp;&emsp;&emsp;&emsp;I am also the Deputy Director Technical Operations of the Web Development Team at NIT Silchar Model United Nations, and have both worked as a web developer in the team as well as a mentor
         to the junior developers to get them started with their journeys as a web developer, and upskill to be able to maintain the code base.
       </p>
       <p>
-        &emsp;I am developer by passion, and really enthusiastic about contributing open source and giving back to the community,
+        &emsp;&emsp;&emsp;&emsp;I am developer by passion, and really enthusiastic about contributing open source and giving back to the community,
         and if something piques my curiosity, I work really hard to understand them to a good level.
       </p>
     </div>
@@ -611,90 +663,46 @@
     position: relative;
   }
 
-  .intro-img-cont {
-    position: absolute;
-    height: 100vh;
-    width: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .intro-img-cont img, .intro-img-cont .intro-img-tint {
-    position: absolute;
-    height: 100vh;
-    width: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .intro-img-cont .intro-img-tint {
-    z-index: 3;
-    background-color: var(--theme-3-025);
-    backdrop-filter: blur(0.5vh);
-  }
-
   .intro-content {
-    position: absolute;
-    z-index: 3;
-    height: 100%;
+    position: inherit;
+    height: 100vh;
     width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .intro-content .name {
+    width: fit-content;
+    font-size: 10rem;
+    text-transform: uppercase;
+    overflow: hidden;
+    color: var(--theme-3-100);
+    text-shadow: 0 0 1rem var(--theme-1-100);
+  }
+
+  /* .intro-content .img {
+    position: relative;
+    height: 30rem;
+    width: 30rem;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    border-radius: 5rem;
+    cursor: pointer;
   }
 
-  .intro-content .left {
+  .intro-content .img img {
     position: relative;
-    height: 30vh;
-    margin: 5vh;
-    white-space: nowrap;
+    height: 100%;
+    width: 100%;
   }
 
-  .intro-content .left .name {
-    position: relative;
-    animation: type 2s ease-in-out forwards;
-    width: 40vw;
-    overflow: hidden;
-  }
-
-  @keyframes type {
-    from {
-      width: 0%;
-    }
-
-    to {
-      width: 40vw;
-    }
-  }
-
-  .intro-content .right {
-    position: relative;
-    margin: 5vh;
-    width: 30vh;
-    height: 30vh;
-  }
-
-  .intro-content .right img {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, -100%);
-    height: 30vh;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    border: 0.4vh solid var(--theme-3-100);
-  }
-
-  #intro .name h1 {
-    font-size: 5rem;
-    color: var(--theme-3-100);
-    border: none;
-    text-transform: none;
-    font-family: 'Chivo Mono', monospace;
-  }
+  .intro-content .img:hover {
+    box-shadow: 0 0 2rem 1rem grey;
+    transition: 0.2s ease-in-out;
+  } */
 
   /* About Me */
   #about {
@@ -707,12 +715,13 @@
     height: auto;
     min-height: 80vh;
     width: 100%;
+    font-size: 2rem;
   }
 
   .about-content p {
     padding: 5vh 2vh 0 2vh;
     color: var(--theme-2-100);
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     text-align: justify;
   }
 

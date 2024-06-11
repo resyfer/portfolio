@@ -18,6 +18,7 @@ function listener(e: KeyboardEvent) {
     
     let valid =
         (e.keyCode != 13) && (
+        (charcode >= 48 && charcode <= 57) ||
         (charcode >= 65 && charcode <= 90) ||
         (charcode >= 96 && charcode <= 105) ||
         (charcode == 18) ||
@@ -59,25 +60,59 @@ function new_prompt() {
     blinker = document.getElementById("blink");
 
     prompt_input!.focus();
-    prompt_input!.addEventListener('keyup', listener);
+    prompt_input!.addEventListener('keydown', listener);
 }
 
 function handle_prompt(txt: string) {
+    let out = "";
+    let unknown = false;
     if (txt === "") {
     } else if(txt == "clear" || txt == "cls") {
         app.innerHTML = "";
+        new_prompt();
         return;
     } else if (txt == "neofetch") {
-        user_txt!.innerHTML += term.neofetch();
+        out = term.neofetch().join(" ");
     } else if (txt == "pwd" ||   txt == "cwd") {
-        user_txt!.innerHTML += term.pwd;
+        out = term.pwd;
     } else if (txt == "ls" || txt.substr(0, 3) == "ls ") {
-        console.log(txt.substring(3));
-        user_txt!.innerHTML += term.ls(txt.substring(3));
+        let tmp = term.ls(txt.substring(3));
+        
+        out += "<table class='ls'>"
+        for(let i = 0; i < tmp.length; i++) {
+            out += "<tr>"
+            out += `<td><img src='${tmp[i][0]}'></img><td>`;
+            out += `<td>${tmp[i][1]}<td>`;
+            out += "</tr>"
+            }
+        out += "</table>"
+
+    } else if (txt == "cd" || txt.substr(0, 3) == "cd ") {
+        if (txt == "cd") {
+            out += term.cd() ? "" : `Uknown directory ${txt.substring(3)}`;
+        } else {
+            out += term.cd(txt.substring(3)) ? "" : `Uknown directory ${txt.substring(3)}`;
+        }
+    } else if (txt == "cat" || txt.substr(0, 4) == "cat ") {
+        if (txt == "cat") {
+            out += `cat: File not specified.`;
+        } else {
+            out += term.cat(txt.substring(4));
+        }
     } else {
-        user_txt!.innerText += `Unknown Command: ${txt}\n`;
+        out = `Unknown Command: ${txt}`;
+        unknown = true;
     }
-    user_txt!.innerHTML += "\n";
+
+    if (out != "\n" && out.trim().length != 0) {
+        out += "\n";
+    }
+
+    if (unknown) {
+        user_txt!.innerText += out;
+    } else {
+        user_txt!.innerHTML += out;
+    }
     new_prompt();
 }
 
@@ -94,7 +129,7 @@ window.addEventListener("click", () => {
     prompt_input!.contentEditable = "false";
     prompt_input!.remove();
 
-    user_txt!.innerHTML += term.neofetch();
+    user_txt!.innerHTML += term.neofetch().join(" ");
     user_txt!.innerHTML += "\n";
     user_txt!.removeAttribute("id");
     user_txt!.setAttribute("class", "old_prompt");
@@ -105,6 +140,6 @@ window.addEventListener("click", () => {
     prompt_input = document.getElementById("prompt");
     blinker = document.getElementById("blink");
 
-    prompt_input!.addEventListener('keyup', listener);
+    prompt_input!.addEventListener('keydown', listener);
     prompt_input!.focus();
 })();

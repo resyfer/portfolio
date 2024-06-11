@@ -16,14 +16,15 @@
 }
 
 html, body {
-    height: 100vh;
+    height: 100%;
     width: 100%;
     padding: 0.5vh;
-    overflow: hidden;
+    overflow-y: scroll;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     word-wrap: break-word;
+    box-sizing: border-box;
     /* cursor: none; */
 }
 
@@ -37,6 +38,10 @@ html, body {
     50% { opacity: 0; }
     70% { opacity: 1; }
     to { opacity: 1.0; }
+}
+
+#app {
+    width: 100%;
 }
 
 #prompt, .old_prompt {
@@ -57,4 +62,37 @@ html, body {
 #txt {
     text-wrap: stable;
     word-wrap: normal;
+}
+
+.neofetch {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    word-wrap: break-word;
+}
+
+img {
+    display: inline;
+    height: 1em;
+    width: auto;
+}
+
+svg {
+    fill: var(--fg);
+    color: var(--fg);
+}
+
+table {
+    display: flex;
+    flex-direction: column;
+}
+
+td, th {
+    padding: 0 0.5rem;
+    text-align: center;
+}
+
+.ls td, .ls th {
+    text-align: left !important;
 }

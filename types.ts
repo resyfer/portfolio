@@ -4,8 +4,13 @@ type SimFile = {
     contents: string;
 };
 
+type SimDirWithLogo = {
+    logo : string,
+    items: SimDir
+};
+
 type SimDir = {
-    [key: string]: (SimDir | SimFile);
+    [key: string]: (SimDir | SimFile | SimDirWithLogo);
 };
 
 type SimDirEnt = {

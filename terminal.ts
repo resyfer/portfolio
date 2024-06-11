@@ -10,34 +10,53 @@ class Terminal {
 
     new_path(tgt: string) {
         let rel_path = tgt.split("/");
-        let idx = this.path.length - 1;
+        rel_path = rel_path.filter((txt) => txt.trim() !== "");
+
+        let idx = this.path.length;
         let new_path: string[];
 
-        new_path = [...this.path];
+        if (tgt[0] !== '/') {
+            new_path = [...this.path];
 
-        if(tgt != "/") {
             for(let i = 0; i < rel_path.length; i++) {
                 if(rel_path[i] == ".") {
                     /* Ignore */
                 } else if (rel_path[i] == "..") {
                     idx--;
+                    new_path.pop();
                 } else {
                     new_path[idx++] = rel_path[i];
                 }
             }
-        }
 
-        return new_path;
+        } else {
+            new_path = [...rel_path];
+        }
+        return (this.get_item(new_path)) ? new_path : this.path;
     }
 
     get_item(tgt_path: string[]) {
         let item: SimDir | SimFile = info;
+        let found: boolean = true;
+
+        tgt_path = tgt_path.filter((txt) => txt.trim() !== "");
 
         for(let idx = 0; idx < tgt_path.length; idx++) {
+            found = false;
+
             for(const key in item) {
                 if(key == tgt_path[idx]) {
+                    found = true;
                     item = item[key];
                 }
+            }
+
+            if (found == false) {
+                return null;
+            }
+
+            if (item["items"] != undefined && item["logo"] != undefined) {
+                item = item["items"]
             }
         }
 
@@ -52,32 +71,49 @@ class Terminal {
         return (typeof obj.name == "string" && typeof obj.logo == "string" && typeof obj.contents == "string") ? "FILE": "DIRECTORY";
     }
 
-    ls(tgt: string = ".") : SimDirEnt[] {
+    ls(tgt: string = ".") : string[][] {
 
         let item = this.get_item_from_path(tgt);
 
+        if (!item) {
+            return [];
+        }
+
         if(this.fs_object_type(item) == "FILE") {
-            return [{
+            let tmp = {
                 logo: item.logo,
                 name: item.name,
                 type: "FILE"
-            } as SimDirEnt]
+            } as SimDirEnt;
+
+            return [[tmp.logo, tmp.name]];
         } else {
             return Object.keys(item).map(dirent => {
                 let obj: (SimDir | SimFile) = item[dirent];
+                let tmp: SimDirEnt;
                 if(this.fs_object_type(obj) == "FILE") {
-                    return {
-                        name: obj.name,
+                    tmp = {
+                        name: dirent,
                         logo: obj.logo,
                         type: "FILE",
                     } as SimDirEnt;
                 } else {
-                    return {
-                        name: dirent,
-                        logo: dir_default_logo,
-                        type: "DIRECTORY"
-                    } as SimDirEnt;
+                    if (obj["logo"] && obj["items"]) {
+                        tmp = {
+                            name: dirent,
+                            logo: obj.logo,
+                            type: "DIRECTORY"
+                        } as SimDirEnt;
+                    } else {
+                        tmp = {
+                            name: dirent,
+                            logo: dir_default_logo,
+                            type: "DIRECTORY"
+                        } as SimDirEnt;
+                    }
                 }
+
+                return [tmp.logo, tmp.name];
             })
         }
     }
@@ -86,16 +122,24 @@ class Terminal {
 
         let item = this.get_item_from_path(tgt);
 
-        if(this.fs_object_type(item) !== "FILE") {
+        if (!item) {
+            return "Can't read the contents of the requested file.";
+        }
+
+        if(this.fs_object_type(item) === "FILE") {
             return (item as SimFile).contents;
         }
 
-        return ""
+        return "cat: Not a file."
     }
 
     cd(tgt: string = "/") {
         let new_path = this.new_path(tgt);
         let item = this.get_item(new_path);
+
+        if (!item) {
+            return false;
+        }
 
         if(this.fs_object_type(item) == "FILE") {
             return false;
@@ -123,7 +167,8 @@ class Terminal {
 
     neofetch() {
         return [
-            `
+            "<div class='neofetch'>",
+            `<pre>
                           __             
                          / _|            
  _ __   ___  ___  _   _ | |_   ___  _ __ 
@@ -131,16 +176,18 @@ class Terminal {
 | |   |  __/\\__ \\| |_| || |  |  __/| |   
 |_|    \\___||___/ \\__, ||_|   \\___||_|   
                    __/ |                 
-                  |___/`,
-
+                  |___/</pre>`,
 `
+<div>
 Current Age: ${Math.floor((Date.now() - birth.getTime())/(365 * 24 * 60 * 60 * 1000))} yrs
 Designation: Associate Software Engineer @ Oracle
 Latest Education: B. Tech. @ N.I.T. Silchar, India
 Latest Achievement: GSoC Contributor '24 @ Apache
 Latest Project: mnemofs (@ Apache NuttX RTOS)
-Hobbies: Digital Art, Embedded Systems, Light Novels`,
-`\n\nWelcome to My Portfolio! Use it like a normal TTY!`
+Hobbies: Digital Art, Embedded Systems, Light Novels
+\nWelcome to My Portfolio! Use it like a normal TTY!
+</div>`,
+"</div>"
         ]
     }
 

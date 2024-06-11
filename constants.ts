@@ -1,3 +1,3 @@
-let dir_default_logo = "./logo_somewhere.png";
+let dir_default_logo = "./assets/dir.svg";
 
 export {dir_default_logo}

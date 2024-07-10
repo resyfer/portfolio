@@ -1,6 +1,5 @@
 import Terminal from "./terminal";
 
-// const prompt = "<span id='blink'>█</span>";
 const app = document.getElementById("app")!;
 
 const term = new Terminal();
@@ -8,9 +7,24 @@ const term = new Terminal();
 app.innerHTML = "";
 app.innerHTML += term.get_prompt();
 
-var user_txt = document.getElementById("txt");
-var prompt_input = document.getElementById("prompt");
-var blinker = document.getElementById("blink");
+let user_txt = document.getElementById("txt");
+let prompt_input = document.getElementById("prompt");
+let blinker = document.getElementById("blink");
+
+let tab_count = 0;
+
+function prefix(x: string, y: string) {
+    let len = Math.min(x.length, y.length);
+    let i = 0;
+
+    while (i < len && x[i] === y[i]) i++;
+
+    return x.substring(0, i);
+}
+
+function tab() {
+    /* TODO */
+}
 
 function listener(e: KeyboardEvent) {
     e.preventDefault();
@@ -26,22 +40,29 @@ function listener(e: KeyboardEvent) {
         (charcode == 191) ||
         (charcode == 220) ||
         (charcode == 173) ||
-        (charcode == 32)
+        (charcode == 32) ||
+        (charcode == 9)
         );
 
     if (e.keyCode == 13) {
         let txt = user_txt!.innerText;
         user_txt!.innerText += "\n";
         handle_prompt(txt);
+        tab_count = 0;
+    } else if (charcode == 9) {
+        tab();
     } else if (charcode == 8) {
         user_txt!.innerText = user_txt!.innerText.slice(0, -1);
+        tab_count = 0;
     } else if(valid) {
         if(e.key != "Alt") {
             user_txt!.innerText += e.key;
             prompt_input!.innerText = "";
         }
+        tab_count = 0;
     } else {
         prompt_input!.innerText = "";
+        tab_count = 0;
     }
 }
 
@@ -99,6 +120,9 @@ function handle_prompt(txt: string) {
         } else {
             out += term.cat(txt.substring(4));
         }
+
+    } else if (txt == "exit") {
+        term.exit();
     } else {
         out = `Unknown Command: ${txt}`;
         unknown = true;

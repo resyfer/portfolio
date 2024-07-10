@@ -633,8 +633,8 @@ Semester Credits: 16
 July 16, 2024 - Present
 `
             },
-            "Intern": {
-                name: "Intern",
+            "Project Intern": {
+                name: "Project Intern",
                 logo: "./assets/oracle.svg",
                 contents:
 `
@@ -665,6 +665,19 @@ wxWidgets, C++17, SQLite3, CMake, MSBuild, BitBucket, Git.
                         logo: "./assets/gsoc.svg",
                         contents:
 `
+# Google Summer of Code (GSoC) Contributor 2024 @ Apache Software Foundation
+
+# Project
+Apache NuttX: A Real Time Operating System (RTOS).
+
+# Technologies Involved
+C 99, Embedded Boards (STM32, ESP32, etc.), Make, CMake, Git, GitHub.
+
+# Work
+- Designed mnemofs, a file system made specifically for NAND flashes.
+- Implemented mnemofs.
+- Implemented an SPI driver for W25N Winbond NAND flash in NuttX.
+- Implemented a NAND flash virtual device in NuttX Simulator.
 `
                     },
                     "2023": {
@@ -672,6 +685,18 @@ wxWidgets, C++17, SQLite3, CMake, MSBuild, BitBucket, Git.
                         logo: "./assets/gsoc.svg",
                         contents:
 `
+# Google Summer of Code (GSoC) Contributor 2023 @ PostgreSQL Organization
+
+# Project
+pgexporter: A Prometheus exporter for PostgreSQL.
+
+# Technologies Involved
+C 17, Prometheus, Grafana, CMake, Git, GitHub.
+
+# Work
+- Added support for existing and any future versions of PostgreSQL out of the box.
+- Support for any future versions will not need any modifications in the codebase.
+- Added Grafana usage with pgexporter tutorial.
 `
                     } 
                 }

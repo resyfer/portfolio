@@ -32,7 +32,7 @@ class Terminal {
         } else {
             new_path = [...rel_path];
         }
-        return (this.get_item(new_path)) ? new_path : this.path;
+        return (this.get_item(new_path)) ? new_path : undefined;
     }
 
     get_item(tgt_path: string[]) {
@@ -64,7 +64,8 @@ class Terminal {
     }
 
     get_item_from_path(tgt: string) {
-        return this.get_item(this.new_path(tgt));
+        let path = this.new_path(tgt);
+        return path ? this.get_item(path) : path;
     }
 
     fs_object_type(obj: SimDir | SimFile) {
@@ -135,6 +136,11 @@ class Terminal {
 
     cd(tgt: string = "/") {
         let new_path = this.new_path(tgt);
+
+        if (!new_path) {
+            return false;
+        }
+
         let item = this.get_item(new_path);
 
         if (!item) {
@@ -186,6 +192,7 @@ Latest Achievement: GSoC Contributor '24 @ Apache
 Latest Project: mnemofs (@ Apache NuttX RTOS)
 Hobbies: Digital Art, Embedded Systems, Light Novels
 \nWelcome to My Portfolio! Use it like a normal TTY!
+\nYou can also look at my blogs <a href="https://resyfer.github.io/blogs/" target="_blank">here</a>!
 </div>`,
 "</div>"
         ]
@@ -193,6 +200,10 @@ Hobbies: Digital Art, Embedded Systems, Light Novels
 
     get_prompt() {
         return `[${this.user} ${this.pwd}]$ <span id="txt"></span><span id='prompt' contenteditable='true' autofocus></span><span id='blink'>█</span>`;
+    }
+
+    exit() {
+        window.close();
     }
 }
 
